@@ -43,7 +43,7 @@ public class ViewRole1Home {
     protected static Button button_ViewMyPosts = new Button("View My Posts");
     protected static Button button_SearchPosts = new Button("Search Posts");
 
-    protected static Line line_Separator2 = new Line(160, 210, width-20, 160);
+    protected static Line line_Separator2 = new Line(20, 160, width-20, 160);
     
     // Post table
     protected static TableView<PostDisplay> table_Posts = new TableView<>();
@@ -117,7 +117,7 @@ public class ViewRole1Home {
         
         // Action buttons
         setupButtonUI(button_CreatePost, "Dialog", 16, 150, Pos.CENTER, 20, 110);
-//        button_CreatePost.setOnAction((_) -> {ControllerRole1Home.createNewPost(); });
+        button_CreatePost.setOnAction((_) -> {ControllerRole1Home.createNewPost(); });
         
         setupButtonUI(button_ViewAllPosts, "Dialog", 16, 150, Pos.CENTER, 190, 110);
         button_ViewAllPosts.setOnAction((_) -> {ControllerRole1Home.loadAllPosts(); });
@@ -161,31 +161,45 @@ public class ViewRole1Home {
      * Setups the TableView with columns
      */
     private void setupTableView() {
-        TableColumn<PostDisplay, Integer> idCol = new TableColumn<>("ID");
-        idCol.setCellValueFactory(new PropertyValueFactory<>("postId"));
-        idCol.setPrefWidth(50);
-        
-        TableColumn<PostDisplay, String> titleCol = new TableColumn<>("Title");
-        titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
-        titleCol.setPrefWidth(350);
-        
-        TableColumn<PostDisplay, String> authorCol = new TableColumn<>("Author");
-        authorCol.setCellValueFactory(new PropertyValueFactory<>("author"));
-        authorCol.setPrefWidth(120);
-        
-        TableColumn<PostDisplay, Integer> repliesCol = new TableColumn<>("Replies");
-        repliesCol.setCellValueFactory(new PropertyValueFactory<>("replyCount"));
-        repliesCol.setPrefWidth(80);
-        
-        TableColumn<PostDisplay, String> statusCol = new TableColumn<>("Status");
-        statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
-        statusCol.setPrefWidth(80);
+    	// ID Column (50px)
+    	TableColumn<PostDisplay, Integer> colId = new TableColumn<>("ID");
+    	colId.setCellValueFactory(new PropertyValueFactory<>("postId"));
+    	colId.setPrefWidth(50);
+    	colId.setMaxWidth(50);
+    	colId.setMinWidth(50);
 
-        TableColumn<PostDisplay, String> dateCol = new TableColumn<>("Date");
-        dateCol.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
-        dateCol.setPrefWidth(160);
+    	// Title Column (350px -> reduce this to make room for Thread)
+    	TableColumn<PostDisplay, String> colTitle = new TableColumn<>("Title");
+    	colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+    	colTitle.setPrefWidth(250);  // CHANGED from 350 to 250
 
-        table_Posts.getColumns().addAll(idCol, titleCol, authorCol, repliesCol, statusCol, dateCol);
+    	// Thread Column (100px) - NEW!
+    	TableColumn<PostDisplay, String> colThread = new TableColumn<>("Thread");
+    	colThread.setCellValueFactory(new PropertyValueFactory<>("thread"));
+    	colThread.setPrefWidth(100);
+
+    	// Author Column (120px)
+    	TableColumn<PostDisplay, String> colAuthor = new TableColumn<>("Author");
+    	colAuthor.setCellValueFactory(new PropertyValueFactory<>("author"));
+    	colAuthor.setPrefWidth(120);
+
+    	// Replies Column (80px)
+    	TableColumn<PostDisplay, Integer> colReplies = new TableColumn<>("Replies");
+    	colReplies.setCellValueFactory(new PropertyValueFactory<>("replyCount"));
+    	colReplies.setPrefWidth(80);
+
+    	// Status Column (80px)
+    	TableColumn<PostDisplay, String> colStatus = new TableColumn<>("Status");
+    	colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+    	colStatus.setPrefWidth(80);
+
+    	// Date Column (160px)
+    	TableColumn<PostDisplay, String> colDate = new TableColumn<>("Date");
+    	colDate.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
+    	colDate.setPrefWidth(160);
+
+    	// Add all columns to the table
+    	table_Posts.getColumns().addAll(colId, colTitle, colThread, colAuthor, colReplies, colStatus, colDate);
         table_Posts.setItems(postData);
         
         table_Posts.setLayoutX(20);
@@ -198,10 +212,12 @@ public class ViewRole1Home {
      * Populates the table with posts
      */
     protected static void populatePostTable(List<Post> posts) {
+        
         postData.clear();
         for (Post post : posts) {
             if (!post.isDeleted()) {
                 postData.add(new PostDisplay(post));
+            } else {
             }
         }
     }
@@ -261,37 +277,34 @@ public class ViewRole1Home {
      * ADAPTED FOR FRIEND'S POST CLASS
      */
     public static class PostDisplay {
-        private final javafx.beans.property.SimpleIntegerProperty postId;
-        private final javafx.beans.property.SimpleStringProperty title;
-        private final javafx.beans.property.SimpleStringProperty author;
-        private final javafx.beans.property.SimpleIntegerProperty replyCount;
-        private final javafx.beans.property.SimpleStringProperty status;
-        private final javafx.beans.property.SimpleStringProperty timestamp;
+        private final int postId;
+        private final String title;
+        private final String thread;     // NEW!
+        private final String author;
+        private final int replyCount;
+        private final String status;
+        private final String timestamp;
+        private final Post post;
 
         public PostDisplay(Post post) {
-            // Friend's methods: getPostID(), getUsername(), getTitle()
-            this.postId = new javafx.beans.property.SimpleIntegerProperty(post.getPostID());
-            this.title = new javafx.beans.property.SimpleStringProperty(post.getTitle());
-            this.author = new javafx.beans.property.SimpleStringProperty(post.getUsername());
-
-            // Reply count tracked in ModelRole1Home
-            this.replyCount = new javafx.beans.property.SimpleIntegerProperty(
-                ModelRole1Home.getReplyCount(post.getPostID()));
-
-            // Read status - shows READ or UNREAD
-            this.status = new javafx.beans.property.SimpleStringProperty(
-                ModelRole1Home.isRead(post.getPostID()) ? "READ" : "UNREAD");
-
-            // Formatted timestamp from ModelRole1Home helper
-            this.timestamp = new javafx.beans.property.SimpleStringProperty(
-                ModelRole1Home.getFormattedTimestamp(post));
+            this.post = post;
+            this.postId = post.getPostID();
+            this.title = post.getTitle();
+            this.thread = post.getThreadName();  // NEW!
+            this.author = post.getUsername();
+            this.replyCount = ModelRole1Home.getReplyCount(post.getPostID());
+            this.status = ModelRole1Home.isRead(post.getPostID()) ? "READ" : "UNREAD";
+            this.timestamp = ModelRole1Home.getFormattedTimestamp(post);
         }
 
-        public int getPostId() { return postId.get(); }
-        public String getTitle() { return title.get(); }
-        public String getAuthor() { return author.get(); }
-        public int getReplyCount() { return replyCount.get(); }
-        public String getStatus() { return status.get(); }
-        public String getTimestamp() { return timestamp.get(); }
+        // Getters
+        public int getPostId() { return postId; }
+        public String getTitle() { return title; }
+        public String getThread() { return thread; }  // NEW!
+        public String getAuthor() { return author; }
+        public int getReplyCount() { return replyCount; }
+        public String getStatus() { return status; }
+        public String getTimestamp() { return timestamp; }
+        public Post getPost() { return post; }
     }
 }

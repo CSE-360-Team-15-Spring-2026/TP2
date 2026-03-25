@@ -16,4 +16,5 @@ module FoundationsF25 {
     opens guiEditPost to javafx.base;
     opens guiEditReply to javafx.base;
     opens guiViewPost to javafx.base;
+    opens guiRole1 to javafx.base;
 }

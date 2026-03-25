@@ -55,10 +55,10 @@ public class ControllerViewPost {
         // ROLE 1 (Student)
         if (applicationMain.FoundationsMain.activeHomePage == 2) {
 
-            success = guiRole1.ModelRole1Home.createReply(
-                ViewViewPost.thePost.getPostID(),
-                replyBody.trim()
-            );
+//            success = guiRole1.ModelRole1Home.createReply(
+//                ViewViewPost.thePost.getPostID(),
+//                replyBody.trim()
+//            );
         }
 
         // ROLE 2 (Staff)
@@ -137,7 +137,7 @@ public class ControllerViewPost {
         // ROLE 1
         if (applicationMain.FoundationsMain.activeHomePage == 2) {
 
-            success = guiRole1.ModelRole1Home.deleteReply(selectedReply);
+//            success = guiRole1.ModelRole1Home.deleteReply(selectedReply);
         }
 
         // ROLE 2 ✅ FIXED HERE

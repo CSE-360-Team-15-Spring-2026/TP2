@@ -3,14 +3,12 @@ package guiRole1;
 import entityClasses.Post;
 import entityClasses.Reply;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p> Title: ModelRole1Home Class </p>
  *
- * <p> Description: Model for Student Discussion System - manages all posts and replies in memory </p>
+ * <p> Description: Model for Student Discussion System - manages all posts via database </p>
  *
  * <p> Copyright: Lynn Robert Carter © 2025 </p>
  *
@@ -19,16 +17,7 @@ import java.util.Map;
  */
 public class ModelRole1Home {
 
-    // In-memory storage (static so data persists across page navigations)
-    private static List<Post> allPosts = new ArrayList<>();
-    private static List<Reply> allReplies = new ArrayList<>();
-    
-    // Track replies per post (since Post class doesn't have reply management)
-    private static Map<Integer, List<Reply>> postReplies = new HashMap<>();
-    
     private static String currentUser = "";
-    private static int nextPostId = 1;
-    private static int nextReplyId = 1;
 
     /**
      * Initializes the model with current user
@@ -45,28 +34,36 @@ public class ModelRole1Home {
     }
 
     /**
-     * Gets all posts
+     * Gets all posts FROM DATABASE
      */
     public static List<Post> getAllPosts() {
-        return new ArrayList<>(allPosts);
-    }
-
-    /**
-     * Gets a specific post by ID
-     */
-    public static Post getPostById(int postId) {
+        database.Database db = applicationMain.FoundationsMain.database;
+        List<Post> allPosts = db.getAllPosts();
+        
+        // Filter out replies (only show top-level posts)
+        List<Post> topLevelPosts = new ArrayList<>();
         for (Post post : allPosts) {
-            if (post.getPostID() == postId) {
-                return post;
+            
+            if (post.getParentPostID() == -1) {  // -1 means top-level post
+                topLevelPosts.add(post);
             }
         }
-        return null;
+        return topLevelPosts;
     }
 
     /**
-     * Gets posts by current user
+     * Gets a specific post by ID FROM DATABASE
+     */
+    public static Post getPostById(int postId) {
+        database.Database db = applicationMain.FoundationsMain.database;
+        return db.getPostByID(postId);
+    }
+
+    /**
+     * Gets posts by current user FROM DATABASE
      */
     public static List<Post> getMyPosts() {
+        List<Post> allPosts = getAllPosts();
         List<Post> myPosts = new ArrayList<>();
         for (Post post : allPosts) {
             if (post.getUsername().equals(currentUser)) {
@@ -77,57 +74,7 @@ public class ModelRole1Home {
     }
 
     /**
-     * Creates a new post
-     */
-    public static boolean createPost(String title, String body, String thread) {
-        // Input validation
-        if (title == null || title.trim().isEmpty()) {
-            return false;
-        }
-        if (body == null || body.trim().isEmpty()) {
-            return false;
-        }
-
-        // Friend's constructor: Post(username, title, body, keywords, threadName)
-        Post newPost = new Post(currentUser, title.trim(), body.trim(), "", 
-                               (thread == null || thread.isEmpty()) ? "General" : thread);
-        
-        // Manually set the ID since their setPostID is a stub
-        // This will be implemented by your teammates
-        try {
-            newPost.setPostID(nextPostId++);
-        } catch (Exception e) {
-            // If not implemented yet, continue
-        }
-        
-        allPosts.add(newPost);
-        postReplies.put(newPost.getPostID(), new ArrayList<>());
-        return true;
-    }
-
-    /**
-     * Updates a post
-     */
-    public static boolean updatePost(int postId, String newTitle, String newBody) {
-        Post post = getPostById(postId);
-        if (post == null) {
-            return false;
-        }
-        if (!post.getUsername().equals(currentUser)) {
-            return false; // User can only update their own posts
-        }
-        if (newTitle == null || newTitle.trim().isEmpty() || 
-            newBody == null || newBody.trim().isEmpty()) {
-            return false;
-        }
-        
-        post.setTitle(newTitle);
-        post.setBody(newBody);
-        return true;
-    }
-
-    /**
-     * Deletes a post
+     * Deletes a post IN DATABASE
      */
     public static boolean deletePost(int postId) {
         Post post = getPostById(postId);
@@ -138,111 +85,28 @@ public class ModelRole1Home {
             return false;
         }
         
-        post.changeDelete(); // Friend's method instead of markAsDeleted()
+        post.changeDelete();
         return true;
     }
 
     /**
-     * Creates a reply to a post
-     */
-    public static boolean createReply(int postId, String body) {
-        // Input validation
-        if (body == null || body.trim().isEmpty()) {
-            return false;
-        }
-
-        Post post = getPostById(postId);
-        if (post == null) {
-            return false;
-        }
-
-        // Friend's constructor: Reply(parentPostID, authorUserName, body)
-        Reply newReply = new Reply(postId, currentUser, body.trim());
-        
-        // Manually set ID if their implementation doesn't do it
-        // This will be handled by teammates later
-        
-        allReplies.add(newReply);
-        
-        // Track reply for this post
-        if (!postReplies.containsKey(postId)) {
-            postReplies.put(postId, new ArrayList<>());
-        }
-        postReplies.get(postId).add(newReply);
-        
-        return true;
-    }
-
-    /**
-     * Updates a reply
-     */
-    public static boolean updateReply(int replyId, String newBody) {
-        // Find reply by iterating (since no getReplyById in their code)
-        Reply reply = null;
-        for (Reply r : allReplies) {
-            // Assuming Reply will have a way to identify itself
-            // Your teammates will need to implement this
-            if (r.getUsername().equals(currentUser)) {
-                reply = r;
-                break;
-            }
-        }
-        
-        if (reply == null) {
-            return false;
-        }
-        if (newBody == null || newBody.trim().isEmpty()) {
-            return false;
-        }
-        
-        reply.setBody(newBody);
-        return true;
-    }
-
-    /**
-     * Deletes a reply
-     */
-    public static boolean deleteReply(Reply replyToDelete) {
-        if (replyToDelete == null) {
-            return false;
-        }
-        if (!replyToDelete.getUsername().equals(currentUser)) {
-            return false;
-        }
-        
-        allReplies.remove(replyToDelete);
-        
-        // Remove from post tracking
-        int postId = replyToDelete.getParentPostID();
-        if (postReplies.containsKey(postId)) {
-            postReplies.get(postId).remove(replyToDelete);
-        }
-        
-        return true;
-    }
-
-    /**
-     * Gets replies for a specific post
+     * Gets replies for a specific post FROM DATABASE
      */
     public static List<Reply> getRepliesForPost(int postId) {
-        if (postReplies.containsKey(postId)) {
-            return new ArrayList<>(postReplies.get(postId));
-        }
-        return new ArrayList<>();
+        database.Database db = applicationMain.FoundationsMain.database;
+        return db.getRepliesForPost(postId);
     }
     
     /**
-     * Get reply count for a post
+     * Get reply count for a post FROM DATABASE
      */
     public static int getReplyCount(int postId) {
-        if (postReplies.containsKey(postId)) {
-            return postReplies.get(postId).size();
-        }
-        return 0;
+        List<Reply> replies = getRepliesForPost(postId);
+        return replies.size();
     }
     
     /**
-     * Helper: Get formatted timestamp (since friend's Post doesn't have this)
+     * Helper: Get formatted timestamp
      */
     public static String getFormattedTimestamp(Post post) {
         if (post.getTimestamp() == null) {
