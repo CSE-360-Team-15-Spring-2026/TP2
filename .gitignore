@@ -1,0 +1,14 @@
+# Eclipse - keep .classpath but ignore machine-specific settings
+.project
+.settings/
+
+# Mac junk
+.DS_Store
+__MACOSX/
+
+# Compiled files
+*.class
+bin/
+
+# Build output
+out/
