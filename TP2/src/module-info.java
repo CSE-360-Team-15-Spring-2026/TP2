@@ -12,7 +12,6 @@ module FoundationsF25 {
     opens guiManageInvitations to javafx.base;
     opens guiSearchPosts to javafx.base;
     opens guiCreatePost to javafx.base;
-    opens guiCreateReply to javafx.base;
     opens guiEditPost to javafx.base;
     opens guiEditReply to javafx.base;
     opens guiViewPost to javafx.base;

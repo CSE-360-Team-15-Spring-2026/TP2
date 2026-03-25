@@ -2,49 +2,91 @@ package guiViewPost;
 
 import entityClasses.Post;
 import entityClasses.Reply;
-import guiRole1.ModelRole1Home;
+import database.Database;
 import java.util.List;
 
 /**
  * <p> Title: ModelViewPost Class </p>
  *
- * <p> Description: Model for View Post functionality - holds post and reply data </p>
+ * <p> Description: Model for View Post functionality - handles post and reply operations </p>
  *
  * <p> Copyright: Lynn Robert Carter © 2025 </p>
  *
- * @version 1.00 2026-03-23 Initial implementation for Read & Search functionality
+ * @version 2.00 2026-03-25 Complete reply management
  */
 public class ModelViewPost {
 
-    private static Post currentPost;
-    private static List<Reply> currentReplies;
+    private static Database theDatabase = applicationMain.FoundationsMain.database;
+    private static String currentUser = "";
 
     /**
-     * Load post and its replies
+     * Initialize with current user
      */
-    public static void loadPost(Post post) {
-        currentPost = post;
-        currentReplies = ModelRole1Home.getRepliesForPost(post.getPostID());
+    public static void initialize(String username) {
+        currentUser = username;
     }
 
     /**
-     * Get current post
+     * Get current username
      */
-    public static Post getPost() {
-        return currentPost;
+    public static String getCurrentUser() {
+        return currentUser;
     }
 
     /**
-     * Get replies for current post
+     * Get replies for a post FROM DATABASE
      */
-    public static List<Reply> getReplies() {
-        return currentReplies;
+    public static List<Reply> getRepliesForPost(int postId) {
+        return theDatabase.getRepliesForPost(postId);
     }
 
     /**
-     * Get post ID
+     * Create a reply to a post
      */
-    public static int getPostId() {
-        return currentPost != null ? currentPost.getPostID() : -1;
+    public static boolean createReply(int parentPostID, String replyBody) {
+        if (currentUser == null || currentUser.isBlank()) {
+            return false;
+        }
+        if (replyBody == null || replyBody.isBlank()) {
+            return false;
+        }
+        
+        try {
+            // Get the thread name from the parent post
+            Post parentPost = theDatabase.getPostByID(parentPostID);
+            if (parentPost == null) {
+                return false;
+            }
+            
+            String threadName = parentPost.getThreadName();
+            if (threadName == null || threadName.isBlank()) {
+                threadName = "General";
+            }
+            
+            theDatabase.createReply(currentUser, replyBody.trim(), "", threadName, parentPostID);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * Delete a reply (soft delete)
+     */
+    public static boolean deleteReply(Reply reply) {
+        if (reply == null) {
+            return false;
+        }
+        if (!reply.getUsername().equals(currentUser)) {
+            return false;
+        }
+        
+        try {
+            return theDatabase.deleteReply(reply);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

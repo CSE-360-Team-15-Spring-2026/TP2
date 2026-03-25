@@ -67,6 +67,8 @@ public class ViewViewPost {
         theUser = user;
         thePost = post;
         
+        ModelViewPost.initialize(theUser.getUserName());
+        
         if (theView == null) {
             theView = new ViewViewPost();
         }
