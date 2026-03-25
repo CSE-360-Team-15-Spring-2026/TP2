@@ -132,6 +132,19 @@ public class Database {
 				+ "otp VARCHAR(255) PRIMARY KEY, "
 				+ "userName VARCHAR(255) UNIQUE)";
 	    statement.execute(otpTable);
+	    
+	    // Create thread table
+	 	String threadTable = "CREATE TABLE IF NOT EXISTS threadDB ("
+	 			+ "threadName VARCHAR(255) PRIMARY KEY, "
+	 			+ "createdBy VARCHAR(255), "
+	 			+ "createdAt TIMESTAMP)";
+	 	statement.execute(threadTable);
+	 	
+	 	String readStatusTable = "CREATE TABLE IF NOT EXISTS ReadStatus ("
+	            + "username VARCHAR(255), "
+	            + "postID INT, "                                                      
+	            + "PRIMARY KEY (username, postID))";
+	    statement.execute(readStatusTable);
 	}
 		
 

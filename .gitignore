@@ -1,5 +1,6 @@
 # Eclipse - keep .classpath but ignore machine-specific settings
 .project
+.classpath
 .settings/
 
 # Mac junk
