@@ -14,57 +14,82 @@ import entityClasses.Post;
 /**
  * <p> Title: ViewEditPost Class </p>
  * 
- * <p> Description: Edit an existing post </p>
- * 
- * <p> Copyright: Lynn Robert Carter © 2025 </p>
- * 
- * @author Lynn Robert Carter
- * @version 2.00 2025-03-25 Complete edit post functionality
+ * <p> Description: Displays the the editPost page where users update posts</p>
+ *
+ *
+ * @version 1.00
  */
 public class ViewEditPost {
-    
+    //** Sets window width*/
     private static double width = applicationMain.FoundationsMain.WINDOW_WIDTH;
+    //** Sets window height*/
     private static double height = applicationMain.FoundationsMain.WINDOW_HEIGHT;
-
-    // GUI Area 1: Header
-    protected static Label label_PageTitle = new Label();
-    protected static Label label_UserDetails = new Label();
-    protected static Button button_UpdateThisUser = new Button("Account Update");
     
+    // GUI Area 1: Header
+    //** label for page title*/
+    protected static Label label_PageTitle = new Label();
+    //** label for Details of User*/
+    protected static Label label_UserDetails = new Label();
+    //** Button for Account Update*/
+    protected static Button button_UpdateThisUser = new Button("Account Update");
+    //** line seperator*/
     protected static Line line_Separator1 = new Line(20, 95, width-20, 95);
 
     // GUI Area 2: Edit Form
+    //** sets post title label*/
     protected static Label label_PostTitle = new Label("Post Title:");
+    //** text field for post title*/
     protected static TextField text_PostTitle = new TextField();
     
+    //** sets label for post body*/
     protected static Label label_PostBody = new Label("Post Body:");
+    //** text area for postbody*/
     protected static TextArea text_PostBody = new TextArea();
-    
+
+    //** label for the thread name*/
     protected static Label label_ThreadName = new Label("Thread:");
+    //** combo box for thread name*/
     protected static ComboBox<String> comboBox_ThreadName = new ComboBox<>();
-    
+
+    //** button made to save changes*/
     protected static Button button_SaveChanges = new Button("Save Changes");
+    //** button to cancel*/
     protected static Button button_Cancel = new Button("Cancel");
-    
+
+    //** line seperator */
     protected static Line line_Separator4 = new Line(20, 525, width-20, 525);
     
     // GUI Area 3: Navigation
+    //** button for logging out*/
     protected static Button button_Logout = new Button("Logout");
+    //** button for quiting*/ 
     protected static Button button_Quit = new Button("Quit");
-
+    
+    //** ViewEditPost class*/ 
     private static ViewEditPost theView;
+    //** Database class*/
     private static Database theDatabase = applicationMain.FoundationsMain.database;
 
+    //** the Stage*/
     protected static Stage theStage;
+    //** the root pane*/
     protected static Pane theRootPane;
+    //** the current user*/
     protected static User theUser;
+    //** the current post*/
     protected static Post thePost;  // The post being edited
 
+    //** scene for edit post*/
     private static Scene theViewEditPostScene;
+    //** the role 2*/
     protected static final int theRole = 2;
 
     /**
-     * Display Edit Post page with the post to edit
+     * <p> Display Edit Post page with the post to edit </p>
+     *
+     * @param ps    the stage value
+     * @param user  current user 
+     * @param post  post to be edited
      */
     public static void displayEditPost(Stage ps, User user, Post post) {
         theStage = ps;
@@ -102,7 +127,8 @@ public class ViewEditPost {
     }
     
     /**
-     * Load available threads into combo box
+     * <p> Load available threads into combo box </p>
+     *
      */
     private static void loadThreads() {
         comboBox_ThreadName.getItems().clear();
@@ -119,7 +145,7 @@ public class ViewEditPost {
     }
     
     /**
-     * Constructor - creates all GUI elements
+     * <p> Constructor - creates all GUI elements</p>
      */
     private ViewEditPost() {
         theRootPane = new Pane();
@@ -184,7 +210,17 @@ public class ViewEditPost {
             button_SaveChanges, button_Cancel,
             line_Separator4, button_Logout, button_Quit);
     }
-    
+    /**
+     * <p> sets up ui for label</p>
+     *
+     * @param l    label
+     * @param ff   font family
+     * @param f    font size
+     * @param w    width
+     * @param p    alignment
+     * @param x    x coordinate
+     * @param y    y coordinate
+     */
     private static void setupLabelUI(Label l, String ff, double f, double w, Pos p, double x, double y){
         l.setFont(Font.font(ff, f));
         l.setMinWidth(w);
@@ -192,7 +228,18 @@ public class ViewEditPost {
         l.setLayoutX(x);
         l.setLayoutY(y);        
     }
-    
+     /**
+     * <p> sets up ui for button</p>
+     *
+     * @param b    button to be setup
+     * @param l    label
+     * @param ff   font family
+     * @param f    font size
+     * @param w    width
+     * @param p    alignment
+     * @param x    x coordinate
+     * @param y    y coordinate
+     */
     private static void setupButtonUI(Button b, String ff, double f, double w, Pos p, double x, double y){
         b.setFont(Font.font(ff, f));
         b.setMinWidth(w);
@@ -200,7 +247,17 @@ public class ViewEditPost {
         b.setLayoutX(x);
         b.setLayoutY(y);        
     }
-    
+    /**
+     * <p> show and alert </p>
+     *
+     * @param l    label
+     * @param ff   font family
+     * @param f    font size
+     * @param w    width
+     * @param p    alignment
+     * @param x    x coordinate
+     * @param y    y coordinate
+     */
     protected static void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
