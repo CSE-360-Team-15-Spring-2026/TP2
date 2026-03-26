@@ -242,6 +242,7 @@ public class ViewCreatePost {
 		b.setAlignment(p);
 		b.setLayoutX(x);
 		b.setLayoutY(y);	
+	}
 		
 	/**********
     * Private local method to initialize the standard fields for a text field
