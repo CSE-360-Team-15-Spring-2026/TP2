@@ -20,68 +20,68 @@ import entityClasses.Post;
  * @version 1.00
  */
 public class ViewEditPost {
-    //** Sets window width*/
+    /** Sets window width*/
     private static double width = applicationMain.FoundationsMain.WINDOW_WIDTH;
-    //** Sets window height*/
+    /** Sets window height*/
     private static double height = applicationMain.FoundationsMain.WINDOW_HEIGHT;
     
     // GUI Area 1: Header
-    //** label for page title*/
+    /** label for page title*/
     protected static Label label_PageTitle = new Label();
-    //** label for Details of User*/
+    /** label for Details of User*/
     protected static Label label_UserDetails = new Label();
-    //** Button for Account Update*/
+    /** Button for Account Update*/
     protected static Button button_UpdateThisUser = new Button("Account Update");
-    //** line seperator*/
+    /** line seperator*/
     protected static Line line_Separator1 = new Line(20, 95, width-20, 95);
 
     // GUI Area 2: Edit Form
-    //** sets post title label*/
+    /** sets post title label*/
     protected static Label label_PostTitle = new Label("Post Title:");
-    //** text field for post title*/
+    /** text field for post title*/
     protected static TextField text_PostTitle = new TextField();
     
-    //** sets label for post body*/
+    /** sets label for post body*/
     protected static Label label_PostBody = new Label("Post Body:");
-    //** text area for postbody*/
+    /** text area for postbody*/
     protected static TextArea text_PostBody = new TextArea();
 
-    //** label for the thread name*/
+    /** label for the thread name*/
     protected static Label label_ThreadName = new Label("Thread:");
-    //** combo box for thread name*/
+    /** combo box for thread name*/
     protected static ComboBox<String> comboBox_ThreadName = new ComboBox<>();
 
-    //** button made to save changes*/
+    /** button made to save changes*/
     protected static Button button_SaveChanges = new Button("Save Changes");
-    //** button to cancel*/
+    /** button to cancel*/
     protected static Button button_Cancel = new Button("Cancel");
 
-    //** line seperator */
+    /** line seperator */
     protected static Line line_Separator4 = new Line(20, 525, width-20, 525);
     
     // GUI Area 3: Navigation
-    //** button for logging out*/
+    /** button for logging out*/
     protected static Button button_Logout = new Button("Logout");
-    //** button for quiting*/ 
+    /** button for quiting*/ 
     protected static Button button_Quit = new Button("Quit");
     
-    //** ViewEditPost class*/ 
+    /** ViewEditPost class*/ 
     private static ViewEditPost theView;
-    //** Database class*/
+    /** Database class*/
     private static Database theDatabase = applicationMain.FoundationsMain.database;
 
-    //** the Stage*/
+    /** the Stage*/
     protected static Stage theStage;
-    //** the root pane*/
+    /** the root pane*/
     protected static Pane theRootPane;
-    //** the current user*/
+    /** the current user*/
     protected static User theUser;
-    //** the current post*/
+    /** the current post*/
     protected static Post thePost;  // The post being edited
 
-    //** scene for edit post*/
+    /** scene for edit post*/
     private static Scene theViewEditPostScene;
-    //** the role 2*/
+    /** the role 2*/
     protected static final int theRole = 2;
 
     /**
@@ -232,7 +232,6 @@ public class ViewEditPost {
      * <p> sets up ui for button</p>
      *
      * @param b    button to be setup
-     * @param l    label
      * @param ff   font family
      * @param f    font size
      * @param w    width

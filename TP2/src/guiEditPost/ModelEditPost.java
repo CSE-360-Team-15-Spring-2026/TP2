@@ -14,7 +14,12 @@ import database.Database;
 public class ModelEditPost {
     /** will allow to make calls to database and make the updates*/
     private static Database theDatabase = applicationMain.FoundationsMain.database;
-
+    
+    /**
+	 * <p> Constructor - Not utilized </p>
+	 */
+	public  ModelEditPost() {}
+    
     /**
      * <p> Performs an update to posts in databse </p>
      * 
