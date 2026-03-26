@@ -40,9 +40,7 @@ public class ControllerSearchPosts {
     }
 
     /**********
-     * <p>
-     *
-     * Title: performSearch() Method. </p>
+     * <p> Title: performSearch() Method. </p>
      *
      * <p> Description: Protected method that validates the keyword input and performs a search
      * for posts matching the keyword, optionally filtered by thread name. The method saves the
@@ -84,10 +82,7 @@ public class ControllerSearchPosts {
     }
 
     /**********
-     * <p>
-     *
-     * Title: viewSelectedPost() Method. </p>
-     *
+     * <p> Title: viewSelectedPost() Method. </p>
      * <p> Description: Protected method that retrieves the currently selected post from the
      * results table and opens the View Post page to display the post details and associated replies.
      * The method sets the navigation context to "search" so that the Back button on the View Post
@@ -123,10 +118,7 @@ public class ControllerSearchPosts {
     }
 
     /**********
-     * <p>
-     *
-     * Title: goBack() Method. </p>
-     *
+     * <p> Title: goBack() Method. </p>
      * <p> Description: Protected method that clears the search input fields to prepare for the
      * next search operation and returns the user to the main Role1Home page. </p>
      *
