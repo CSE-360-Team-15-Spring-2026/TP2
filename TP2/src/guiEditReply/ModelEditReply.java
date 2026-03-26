@@ -7,18 +7,22 @@ import database.Database;
  * <p> Title: ModelEditReply Class </p>
  *
  * <p> Description: Model for editing replies </p>
- *
- * <p> Copyright: Lynn Robert Carter © 2025 </p>
- *
- * @author Lynn Robert Carter
- * @version 1.00 2025-03-25 Reply edit functionality
  */
 public class ModelEditReply {
+	
+	/**
+	 * <p> Constructor - Not Utilized </p>
+	 */
+	public ModelEditReply() {}
 
+	/** Establishes connection to the database */
     private static Database theDatabase = applicationMain.FoundationsMain.database;
 
     /**
-     * Update an existing reply
+     * <p> Updates an existing reply </p>
+     * @param reply: the reply to be updated
+     * @param body: the text to be changed in the reply
+     * @return false if the body or reply is blank, true if the reply is successfully updated
      */
     protected static boolean updateReply(Reply reply, String body) {
         if (reply == null) {
