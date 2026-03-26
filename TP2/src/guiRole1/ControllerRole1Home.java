@@ -8,15 +8,16 @@ import java.util.List;
  * 
  * <p> Description: Controller for Student Discussion System - handles all user actions </p>
  * 
- * <p> Copyright: Lynn Robert Carter © 2025 </p>
- * 
- * @author Lynn Robert Carter
- * @version 2.00 2025-02-07 Updated with discussion system functionality
  */
 public class ControllerRole1Home {
     
+	/**
+	 * <p> Constructor - Not utilized </p>
+	 */
+	public  ControllerRole1Home() {}
+	
     /**
-     * Load all posts into the table
+     * <p> Loads all the posts into the table </p>
      */
     public static void loadAllPosts() {
         List<Post> posts = ModelRole1Home.getAllPosts();
@@ -24,7 +25,7 @@ public class ControllerRole1Home {
     }
     
     /**
-     * Load only the current user's posts
+     * <p> Loads only the current user's posts into the table </p>
      */
     protected static void loadMyPosts() {
         List<Post> posts = ModelRole1Home.getMyPosts();
@@ -36,7 +37,7 @@ public class ControllerRole1Home {
     }
     
     /**
-     * Create a new post - opens dialog
+     * <p> Call the displayCreatePost function in guiCreatePost </p>
      */
     protected static void createNewPost() {
         guiCreatePost.ViewCreatePost.displayCreatePost(ViewRole1Home.theStage, 
@@ -44,7 +45,8 @@ public class ControllerRole1Home {
     }
     
     /**
-     * View selected post and its replies
+     * <p> Views the selected post by calling the guiViewPost package </p>
+     * <p> Shows an alert message if no post is selected </p>
      */
     protected static void viewPost() {
         ViewRole1Home.PostDisplay selected = 
@@ -71,7 +73,8 @@ public class ControllerRole1Home {
     }
     
     /**
-     * Edit selected post
+     * <p> Calls guiEditPost to edit the selected post </p>
+     * <p> Shows an alert if no post is selected and if the post is not authored by the current user </p>
      */
     public static void editPost() {
         ViewRole1Home.PostDisplay selected = ViewRole1Home.table_Posts.getSelectionModel().getSelectedItem();
@@ -89,7 +92,7 @@ public class ControllerRole1Home {
             return;
         }
         
-        // Check if it's deleted (for future TP uses)
+        // Check if it's deleted
         if (post.isDeleted()) {
         	ViewRole1Home.showAlert("Error", "Post was deleted");
         	return;
@@ -104,7 +107,7 @@ public class ControllerRole1Home {
     }
     
     /**
-     * Delete selected post with confirmation
+     * <p> Deletes the selected post with confirmation </p>
      */
     protected static void deletePost() {
         ViewRole1Home.PostDisplay selected = 
@@ -147,7 +150,7 @@ public class ControllerRole1Home {
             
             if (success) {
                 ViewRole1Home.showAlert("Success", "Post deleted successfully.");
-                loadAllPosts(); // Refresh the table
+                loadAllPosts(); // Refreshes the table
             } else {
                 ViewRole1Home.showAlert("Error", "Failed to delete post.");
             }
@@ -155,21 +158,21 @@ public class ControllerRole1Home {
     }
     
     /**
-     * Logout and return to login page
+     * <p> Logs the user out and returns them to login page </p>
      */
     protected static void performLogout() {
         guiUserLogin.ViewUserLogin.displayUserLogin(ViewRole1Home.theStage);
     }
     
     /**
-     * Open search posts page
+     * <p> Calls the guiSearchPosts package </p>
      */
     protected static void searchPosts() {
         guiSearchPosts.ViewSearchPosts.displaySearchPosts(ViewRole1Home.theStage);
     }
 
     /**
-     * Quit the application
+     * <p> Terminates the program </p>
      */
     protected static void performQuit() {
         System.exit(0);
