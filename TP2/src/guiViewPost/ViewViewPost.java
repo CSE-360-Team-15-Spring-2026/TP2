@@ -293,6 +293,17 @@ public class ViewViewPost {
         );
     }
 
+    /**********
+    * Private local method to initialize the standard fields for a label
+    *
+    * @param l   the Label to configure
+    * @param ff  the font family
+    * @param f   the font size
+    * @param w   the width of the label
+    * @param p   the alignment
+    * @param x   the x-coordinate (horizontal position)
+    * @param y   the y-coordinate (vertical position)
+    */
     private static void setupLabelUI(Label l, String ff, double f, double w, Pos p, double x, double y) {
         l.setFont(Font.font(ff, f));
         l.setMinWidth(w);
@@ -300,7 +311,18 @@ public class ViewViewPost {
         l.setLayoutX(x);
         l.setLayoutY(y);        
     }
-    
+
+    /**********
+    * Private local method to initialize the standard fields for a button
+    *
+    * @param b   the Button to configure
+    * @param ff  the font family
+    * @param f   the font size
+    * @param w   the width of the button
+    * @param p   the alignment
+    * @param x   the x-coordinate (horizontal position)
+    * @param y   the y-coordinate (vertical position)
+    */
     private static void setupButtonUI(Button b, String ff, double f, double w, Pos p, double x, double y) {
         b.setFont(Font.font(ff, f));
         b.setMinWidth(w);
@@ -309,9 +331,17 @@ public class ViewViewPost {
         b.setLayoutY(y);        
     }
     
-    /**
-     * Show confirmation dialog
-     */
+    /**********
+    * <p> Method: showConfirmation(String title, String message) </p>
+    *
+    * <p> Description: Displays a confirmation dialog and returns true if the user
+    * selects the OK option, otherwise returns false. </p>
+    *
+    * @param title   the title of the dialog window
+    * @param message the message displayed in the dialog
+    *
+    * @return true if the user confirms, false otherwise
+    */
     protected static boolean showConfirmation(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(title);
