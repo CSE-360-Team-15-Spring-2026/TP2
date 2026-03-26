@@ -4,16 +4,15 @@ package guiEditReply;
  * <p> Title: ControllerEditReply Class </p>
  *
  * <p> Description: Controller for Edit Reply page </p>
- *
- * <p> Copyright: Lynn Robert Carter © 2025 </p>
- *
- * @author Lynn Robert Carter
- * @version 1.00 2025-03-25 Reply edit functionality
  */
 public class ControllerEditReply {
 
+	/**
+	 * <p> Constructor - Not Utilized </p>
+	 */
+	public ControllerEditReply() {}
     /**
-     * Save changes to the reply
+     * <p> Saves the changes to the reply </p>
      */
     protected static void performSaveChanges() {
         String body = ViewEditReply.text_ReplyBody.getText();
@@ -37,7 +36,7 @@ public class ControllerEditReply {
     }
     
     /**
-     * Cancel editing and return to view post
+     * <p> Cancels editing and calls the guiViewPost package </p>
      */
     protected static void performCancel() {
         guiViewPost.ViewViewPost.displayViewPost(
@@ -47,6 +46,9 @@ public class ControllerEditReply {
         );
     }
     
+    /**
+     * <p> Calls the guiUpdateUser package </p>
+     */
     protected static void performUpdate() {
         guiUserUpdate.ViewUserUpdate.displayUserUpdate(
             ViewEditReply.theStage,
@@ -54,10 +56,16 @@ public class ControllerEditReply {
         );
     }
 
+    /**
+     * <p> Logs the user out and returns them to the login GUI page </p>
+     */
     protected static void performLogout() {
         guiUserLogin.ViewUserLogin.displayUserLogin(ViewEditReply.theStage);
     }
 
+    /**
+     * <p> Terminates the program </p>
+     */
     protected static void performQuit() {
         System.exit(0);
     }

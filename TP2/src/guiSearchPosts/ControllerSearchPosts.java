@@ -5,19 +5,46 @@ import guiRole1.ViewRole1Home;
 
 import java.util.List;
 
-/**
+/*******
  * <p> Title: ControllerSearchPosts Class </p>
  *
- * <p> Description: Controller for Search Posts functionality - handles user actions </p>
+ * <p> Description: Controller for the Search Posts page. Handles user interactions from the GUI
+ * and coordinates actions between the View and Model components.</p>
+ *
+ * <p> Note: Methods are declared as protected since they are intended to be accessed only by
+ * the View and Model classes within this MVC structure.</p>
  *
  * <p> Copyright: Lynn Robert Carter © 2025 </p>
  *
- * @version 1.00 2026-03-23 Initial implementation for Read & Search functionality
+ * @author Lynn Robert Carter
+ *
  */
 public class ControllerSearchPosts {
 
+    /*-*******************************************************************************************
+
+    User Interface Actions for this page
+
+    This controller is not a class that gets instantiated.  Rather, it is a collection of protected
+    static methods that can be called by the View (which is a singleton instantiated object) and
+    the Model is often just a stub, or will be a singleton instantiated object.
+
+    */
+
     /**
-     * Perform search when user clicks Search button
+     * Default constructor is not used.
+     */
+    public ControllerSearchPosts() {
+    }
+
+    /**********
+     * <p> Title: performSearch() Method. </p>
+     *
+     * <p> Description: Protected method that validates the keyword input and performs a search
+     * for posts matching the keyword, optionally filtered by thread name. The method saves the
+     * results for back navigation and populates the results table with matching posts. If no
+     * results are found, an alert is displayed to inform the user. </p>
+     *
      */
     public static void performSearch() {
         // Get input from text fields
@@ -52,8 +79,13 @@ public class ControllerSearchPosts {
         }
     }
 
-    /**
-     * View selected post from results table
+    /**********
+     * <p> Title: viewSelectedPost() Method. </p>
+     * <p> Description: Protected method that retrieves the currently selected post from the
+     * results table and opens the View Post page to display the post details and associated replies.
+     * The method sets the navigation context to "search" so that the Back button on the View Post
+     * page returns the user to the search results instead of the main home page. </p>
+     *
      */
     public static void viewSelectedPost() {
         ViewSearchPosts.PostDisplay selected =
@@ -83,8 +115,11 @@ public class ControllerSearchPosts {
         );
     }
 
-    /**
-     * Go back to main page
+    /**********
+     * <p> Title: goBack() Method. </p>
+     * <p> Description: Protected method that clears the search input fields to prepare for the
+     * next search operation and returns the user to the main Role1Home page. </p>
+     *
      */
     public static void goBack() {
         // Clear the search fields for next time

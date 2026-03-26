@@ -10,7 +10,12 @@ package guiEditPost;
  * @version 1.00    
  */
 public class ControllerEditPost {
-
+	
+	/**
+	 * <p> Constructor - Not utilized </p>
+	 */
+	public  ControllerEditPost() {}
+	
     /*****
      * <p> Save changes made to the post into the database: if title and body are not empty.</p>
      * <p> Thread name defaults to "General" if empty.</p>

@@ -27,41 +27,71 @@ import java.util.ArrayList;
  * <p> Description: View post with replies and add new replies </p>
  * 
  * <p> Copyright: Lynn Robert Carter © 2025 </p>
- * 
- * @author Lynn Robert Carter
- * @version 1.00 2025-02-07
+ *
  */
 public class ViewViewPost {
-    
+
+    /** Width of the GUI page */
     private static double width = 700;
+    /** Height of the GUI page */
     private static double height = 600;
 
+    /** Displays the title of the selected post */
     protected static Label label_PostTitle = new Label();
+    /** Displays the title of the selected post */
     protected static Label label_PostMeta = new Label();
+    /** Text area showing the body of the selected post */
     protected static TextArea text_PostBody = new TextArea();
-    
+
+    /** Label for the replies section */
     protected static Label label_Replies = new Label("Replies:");
+    /** List view displaying all replies */
     protected static ListView<String> list_Replies = new ListView<>();
+    /** Observable list containing reply text for display */
     protected static ObservableList<String> replyData = FXCollections.observableArrayList();
     
-    // Track actual Reply objects for deletion
+    /** Stores Reply objects corresponding to the displayed replies */
     protected static List<Reply> currentReplies = new ArrayList<>();
-    
+
+    /** Label for the add reply section */
     protected static Label label_AddReply = new Label("Add Reply:");
+    /** Text area for entering a new reply */
     protected static TextArea text_ReplyBody = new TextArea();
+    /** Button to post a new reply */
     protected static Button button_PostReply = new Button("Post Reply");
+    /** Button to delete the selected reply */
     protected static Button button_DeleteReply = new Button("Delete Selected Reply");
+    /** Button to edit the selected reply */
     protected static Button button_EditReply = new Button("Edit Selected Reply");
-    
+
+    /** Button to return to the previous page */
     protected static Button button_Return = new Button("Return");
 
+    /** Singleton instance of ViewViewPost */
     private static ViewViewPost theView;
+    /** JavaFX Stage used to display this page */
     protected static Stage theStage;
+    /** Root pane containing all GUI elements */
     protected static Pane theRootPane;
+    /** Currently logged-in user */
     protected static User theUser;
+    /** The post currently being viewed */
     protected static Post thePost;
+    /** Scene used for this page */
     private static Scene theScene = null;
-    public static String previousPageType = "main"; // "main" or "search"
+    /** Tracks whether the user came from the main page or search page */
+    public static String previousPageType = "main"; 
+    
+    /**********
+    * <p> Method: displayViewPost(Stage ps, User user, Post post) </p>
+    * 
+    * <p> Description: Displays the selected post, loads its details into the GUI,
+    * marks it as read for the current user, and loads all associated replies. </p>
+    * 
+    * @param ps    the JavaFX Stage used to display this page
+    * @param user  the currently logged-in user
+    * @param post  the post to be viewed
+    */
 
     public static void displayViewPost(Stage ps, User user, Post post) {
         theStage = ps;
@@ -122,9 +152,13 @@ public class ViewViewPost {
         theStage.show();
     }
     
-    /**
-     * Load replies for the current post
-     */
+    /**********
+    * <p> Method: loadReplies() </p>
+    * 
+    * <p> Loads all replies associated with the current post and
+    * displays them in the replies list. Deleted replies are shown with a
+    * placeholder message. </p>
+    */
     protected static void loadReplies() {
         replyData.clear();
         currentReplies.clear();
@@ -188,7 +222,13 @@ public class ViewViewPost {
             currentReplies.add(reply);
         }
     }
-    
+    /**********
+    * <p> Constructor: ViewViewPost() </p>
+    * 
+    * <p> Description: Builds and initializes all GUI components for the View Post page.
+    * Sets up the layout, styles, and event handlers for post details, replies,
+    * reply actions, and navigation buttons. </p>
+    */
     private ViewViewPost() {
         theRootPane = new Pane();
         theScene = new Scene(theRootPane, width, height);
@@ -253,6 +293,17 @@ public class ViewViewPost {
         );
     }
 
+    /**********
+    * Private local method to initialize the standard fields for a label
+    *
+    * @param l   the Label to configure
+    * @param ff  the font family
+    * @param f   the font size
+    * @param w   the width of the label
+    * @param p   the alignment
+    * @param x   the x-coordinate (horizontal position)
+    * @param y   the y-coordinate (vertical position)
+    */
     private static void setupLabelUI(Label l, String ff, double f, double w, Pos p, double x, double y) {
         l.setFont(Font.font(ff, f));
         l.setMinWidth(w);
@@ -260,7 +311,18 @@ public class ViewViewPost {
         l.setLayoutX(x);
         l.setLayoutY(y);        
     }
-    
+
+    /**********
+    * Private local method to initialize the standard fields for a button
+    *
+    * @param b   the Button to configure
+    * @param ff  the font family
+    * @param f   the font size
+    * @param w   the width of the button
+    * @param p   the alignment
+    * @param x   the x-coordinate (horizontal position)
+    * @param y   the y-coordinate (vertical position)
+    */
     private static void setupButtonUI(Button b, String ff, double f, double w, Pos p, double x, double y) {
         b.setFont(Font.font(ff, f));
         b.setMinWidth(w);
@@ -269,9 +331,17 @@ public class ViewViewPost {
         b.setLayoutY(y);        
     }
     
-    /**
-     * Show confirmation dialog
-     */
+    /**********
+    * <p> Method: showConfirmation(String title, String message) </p>
+    *
+    * <p> Description: Displays a confirmation dialog and returns true if the user
+    * selects the OK option, otherwise returns false. </p>
+    *
+    * @param title   the title of the dialog window
+    * @param message the message displayed in the dialog
+    *
+    * @return true if the user confirms, false otherwise
+    */
     protected static boolean showConfirmation(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(title);

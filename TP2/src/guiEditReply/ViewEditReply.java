@@ -19,52 +19,82 @@ import entityClasses.Post;
  * 
  * <p> Copyright: Lynn Robert Carter © 2025 </p>
  * 
- * @author Lynn Robert Carter
- * @version 1.00 2025-03-25 Reply editing functionality
  */
 public class ViewEditReply {
-    
+
+    /** Width of the GUI page */
     private static double width = applicationMain.FoundationsMain.WINDOW_WIDTH;
+    /** Height of the GUI page */
     private static double height = applicationMain.FoundationsMain.WINDOW_HEIGHT;
 
     // GUI Area 1: Header
+    /** Title of the page */
     protected static Label label_PageTitle = new Label();
+    /** Displays the current logged-in user */
     protected static Label label_UserDetails = new Label();
+    /** Button to open the Account Update page */
     protected static Button button_UpdateThisUser = new Button("Account Update");
     
+    /** Separator between header and main content */
     protected static Line line_Separator1 = new Line(20, 95, width-20, 95);
 
     // GUI Area 2: Edit Form
+    /** Label for original post section */
     protected static Label label_OriginalPost = new Label("Original Post:");
+    /** Displays the original post content */
     protected static Label label_OriginalPostText = new Label();
-    
+
+    /** Label for reply body input */
     protected static Label label_ReplyBody = new Label("Reply Body:");
+    /** Text area for editing the reply */
     protected static TextArea text_ReplyBody = new TextArea();
-    
+
+    /** Button to save updated reply */
     protected static Button button_SaveChanges = new Button("Save Changes");
+    /** Button to cancel editing and return */
     protected static Button button_Cancel = new Button("Cancel");
-    
+
+    /** Separator before footer section */
     protected static Line line_Separator4 = new Line(20, 525, width-20, 525);
     
     // GUI Area 3: Navigation
+    /** Button that logs the user out */
     protected static Button button_Logout = new Button("Logout");
+    /** Button that exits the application */
     protected static Button button_Quit = new Button("Quit");
 
+    /** Singleton instance of ViewEditReply */
     private static ViewEditReply theView;
+    /** Connection to the database */
     private static Database theDatabase = applicationMain.FoundationsMain.database;
 
+    /** JavaFX Stage used to display this page */
     protected static Stage theStage;
+    /** Root pane containing all UI elements */
     protected static Pane theRootPane;
+    /** Currently logged-in user */
     protected static User theUser;
-    protected static Reply theReply;  // The reply being edited
-    protected static Post thePost;    // The parent post
+    /** The reply currently being edited */
+    protected static Reply theReply;
+    /** The parent post associated with the reply */
+    protected static Post thePost;    
 
+    /** Scene used for this page */
     private static Scene theViewEditReplyScene;
+    /** Role identifier (Role1 = Student) */
     protected static final int theRole = 2;
 
-    /**
-     * Display Edit Reply page with the reply to edit
-     */
+    /**********
+    * <p> Method: displayEditReply(Stage ps, User user, Reply reply, Post post) </p>
+    * 
+    * <p> Description: Displays the Edit Reply page. Initializes the stage, user, 
+    * reply, and post context, and populates the UI with existing reply data.</p>
+    * 
+    * @param ps     the JavaFX Stage used to display this page
+    * @param user   the currently logged-in user
+    * @param reply  the reply being edited
+    * @param post   the parent post associated with the reply
+    */
     public static void displayEditReply(Stage ps, User user, Reply reply, Post post) {
         theStage = ps;
         theUser = user;
@@ -98,9 +128,13 @@ public class ViewEditReply {
         theStage.show();
     }
     
-    /**
-     * Constructor - creates all GUI elements
-     */
+    /**********
+    * <p> Constructor: ViewEditReply() </p>
+    * 
+    * <p> Description: Builds and initializes all GUI components for the Edit Reply page.
+    * Sets layout, styling, and event handlers for all UI elements. This constructor 
+    * follows the singleton pattern and is only executed once.</p>
+    */
     private ViewEditReply() {
         theRootPane = new Pane();
         theViewEditReplyScene = new Scene(theRootPane, width, height);
@@ -154,8 +188,19 @@ public class ViewEditReply {
             label_ReplyBody, text_ReplyBody,
             button_SaveChanges, button_Cancel,
             line_Separator4, button_Logout, button_Quit);
-    }
+    } 
     
+    /**********
+    * Private local method to initialize the standard fields for a label
+    *
+    * @param l   the Label to configure
+    * @param ff  the font family
+    * @param f   the font size
+    * @param w   the width of the label
+    * @param p   the alignment
+    * @param x   the x-coordinate (horizontal position)
+    * @param y   the y-coordinate (vertical position)
+    */
     private static void setupLabelUI(Label l, String ff, double f, double w, Pos p, double x, double y){
         l.setFont(Font.font(ff, f));
         l.setMinWidth(w);
@@ -163,6 +208,17 @@ public class ViewEditReply {
         l.setLayoutX(x);
         l.setLayoutY(y);        
     }
+    /**********
+    * Private local method to initialize the standard fields for a button
+    *
+    * @param b   the Button to configure
+    * @param ff  the font family
+    * @param f   the font size
+    * @param w   the width of the button
+    * @param p   the alignment
+    * @param x   the x-coordinate (horizontal position)
+    * @param y   the y-coordinate (vertical position)
+    */
     
     private static void setupButtonUI(Button b, String ff, double f, double w, Pos p, double x, double y){
         b.setFont(Font.font(ff, f));
@@ -171,7 +227,13 @@ public class ViewEditReply {
         b.setLayoutX(x);
         b.setLayoutY(y);        
     }
-    
+
+    /**********
+    * Displays an informational alert dialog
+    *
+    * @param title   the title of the alert window
+    * @param message the message displayed in the alert
+    */ 
     protected static void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);

@@ -10,12 +10,19 @@ import entityClasses.Reply;
 import java.util.List;
 
 /**
- * Controller for View Post functionality (Replies + Navigation)
+ * <p> Title: ControllerViewPost class </p>
+ * 
+ * <p> Description: Controller for View Post functionality (Replies + Navigation) </p>
+ * 
  */
 public class ControllerViewPost {
 
+	/**
+	 * <p> Constructor - Not utilized </p> 
+	 */
+	public ControllerViewPost() {}
     /**
-     * 🔹 BACK BUTTON (Search OR Home)
+     * <p> Calls the previous GUI page that the user viewed </p>
      */
     public static void goBack() {
         if (ViewViewPost.previousPageType.equals("search")) {
@@ -28,7 +35,7 @@ public class ControllerViewPost {
     }
 
     /**
-     * 🔹 POST REPLY
+     * <p> Replies to a post </p>
      */
     protected static void performPostReply() {
 
@@ -51,7 +58,7 @@ public class ControllerViewPost {
             return;
         }
 
-        // Use ModelViewPost for all reply operations
+        // Uses ModelViewPost for all reply operations
         boolean success = ModelViewPost.createReply(
             ViewViewPost.thePost.getPostID(),
             replyBody.trim()
@@ -67,7 +74,7 @@ public class ControllerViewPost {
     }
 
     /**
-     * 🔹 DELETE REPLY
+     * <p> Deletes the reply from the Post </p>
      */
     protected static void performDeleteReply() {
 
@@ -110,7 +117,7 @@ public class ControllerViewPost {
     }
 
     /**
-     * 🔹 RETURN BUTTON
+     * <p> Returns back to the Role1 home page </p>
      */
     protected static void performReturn() {
 
@@ -129,7 +136,7 @@ public class ControllerViewPost {
     }
     
     /**
-     * 🔹 EDIT REPLY
+     * <p> Calls the guiEditReply package </p>
      */
     protected static void performEditReply() {
 
@@ -168,7 +175,9 @@ public class ControllerViewPost {
     }
 
     /**
-     * 🔹 ALERT HELPER
+     * <p> Helper function to show alerts </p>
+     * @param title: text at the top of the dialog window
+     * @param message: text in the body of the dialog
      */
     private static void showAlert(String title, String message) {
         javafx.scene.control.Alert alert = new javafx.scene.control.Alert(

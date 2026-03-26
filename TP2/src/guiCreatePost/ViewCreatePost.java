@@ -31,66 +31,76 @@ import entityClasses.User;
 
 public class ViewCreatePost {
 	
-	/*-*******************************************************************************************
-
+	/*-******************************************************************************************
 	Attributes
-	
 	 */
-	
 	// These define the application window dimensions
 	
+	/** Width of the GUI page */
 	private static double width = applicationMain.FoundationsMain.WINDOW_WIDTH;
+	/** Height of the GUI page */
 	private static double height = applicationMain.FoundationsMain.WINDOW_HEIGHT;
 
 
 	// The GUI components are organized into 3 main sections
 	
 	// GUI Area 1: Displays page title, current user info, and account update option
+	/** Title of the page */
 	protected static Label label_PageTitle = new Label();
+	/** Displays the current logged-in user */
 	protected static Label label_UserDetails = new Label();
+	/** Button to open the Account Update page */
 	protected static Button button_UpdateThisUser = new Button("Account Update");
 	
-	// Separator line between sections
+	/** Separator line between sections */
 	protected static Line line_Separator1 = new Line(20, 95, width-20, 95);
 
-	// GUI ARea 2: Allows the user to create a new post
-	
+	// GUI Area 2: Allows the user to create a new post
+	/** Label for post title input */
 	protected static Label label_PostTitle = new Label("Post Title");
+	/** Text field for entering the post title */
 	protected static TextField text_PostTitle = new TextField();
 	
+	/** Label for post body input */
 	protected static Label label_PostBody = new Label("Post Body");
+	/** Text area for entering the post content */
 	protected static TextArea text_PostBody = new TextArea();
 	
+	/** Label for selecting thread */
 	protected static Label label_ThreadName = new Label("Thread");
+	/** Dropdown for selecting thread name */
 	protected static ComboBox<String> comboBox_ThreadName = new ComboBox<String>();
 	
+	/** Button to submit and create a post */
 	protected static Button button_CreatePost = new Button("Create Post");
+	/** Button to cancel and return to previous page */
 	protected static Button button_Cancel = new Button("Cancel");
 	
 	
-	// Separator line between the footer section
+	/** Separator line between the footer section */
 	protected static Line line_Separator4 = new Line(20, 525, width-20,525);
 	
 	// GUI Area 3: Provides logout and application exit options
+	/** Button to submit and create a post */
 	protected static Button button_Logout = new Button("Logout");
+	/** Button to cancel and return to previous page */
 	protected static Button button_Quit = new Button("Quit");
-
-	// This is the end of the GUI objects for the page.
 	
-	// These attributes are used to configure the page and populate it with this user's information
-	private static ViewCreatePost theView;		// Used to determine if instantiation of the class
-												// is needed
-
-	// Reference for the in-memory database so this package has access
+	/** Singleton instance of ViewCreatePost */
+	private static ViewCreatePost theView;		
+	/** Connection to the database */
 	private static Database theDatabase = applicationMain.FoundationsMain.database;
-
-	protected static Stage theStage;			// The Stage that JavaFX has established for us	
-	protected static Pane theRootPane;			// The Pane that holds all the GUI widgets
-	protected static User theUser;				// The current logged in User
+	/** JavaFX Stage used to display this page */
+	protected static Stage theStage;			
+	/** Root pane containing all UI elements */
+	protected static Pane theRootPane;			
+	/** Currently logged-in user */
+	protected static User theUser;				
 	
-
-	private static Scene theViewCreatePostScene;	// The shared Scene each invocation populates
-	protected static final int theRole = 2;		// Admin: 1; Role1: 2; Role2: 3
+	/** Scene used for this page */
+	private static Scene theViewCreatePostScene;	
+	/** Role identifier (Role1 = Student) */
+	protected static final int theRole = 2;		
 
 	/*-*******************************************************************************************
 
@@ -331,6 +341,8 @@ public class ViewCreatePost {
 	
 	/**********
 	 * Displays an alert dialog to the user.
+	 * @param title   the title of the alert dialog
+ 	 * @param message the message content displayed in the alert
 	 */
 	protected static void showAlert(String title, String message) {
 		javafx.scene.control.Alert alert = new javafx.scene.control.Alert(
