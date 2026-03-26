@@ -4,21 +4,12 @@ package guiCreatePost;
 /*******
  * <p> Title: ControllerCreatePost Class. </p>
  * 
- * <p> Description: The Java/FX-based Role 1 Home Page.  This class provides the controller
- * actions basic on the user's use of the JavaFX GUI widgets defined by the View class.
+ * <p> Description: Controller for the Create Post page. Handles user interactions from the GUI
+ * and coordinates actions between the View and Model components.</p>
  * 
- * This page is a stub for establish future roles for the application.
+ * <p> Note: Methods are declared as protected since they are intended to be accessed only by
+ * the View and Model classes within this MVC structure.</p>
  * 
- * The class has been written assuming that the View or the Model are the only class methods that
- * can invoke these methods.  This is why each has been declared at "protected".  Do not change any
- * of these methods to public.</p>
- * 
- * <p> Copyright: Lynn Robert Carter © 2025 </p>
- * 
- * @author Lynn Robert Carter
- * 
- * @version 1.00		2025-08-17 Initial version
- * @version 1.01		2025-09-16 Update Javadoc documentation *  
  */
 
 public class ControllerCreatePost {
@@ -26,15 +17,14 @@ public class ControllerCreatePost {
 	/*-*******************************************************************************************
 
 	User Interface Actions for this page
-	
-	This controller is not a class that gets instantiated.  Rather, it is a collection of protected
-	static methods that can be called by the View (which is a singleton instantiated object) and 
-	the Model is often just a stub, or will be a singleton instantiated object.
-	
+
+	This controller is not meant to be instantiated. Instead, it provides a set of
+	protected static methods that are called by the View (a singleton) and, when needed,
+	the Model to handle user interactions.
 	 */
 
 	/**
-	 * Default constructor is not used.
+	 * Default constructor is not used as this class only contains static methods.
 	 */
 	public ControllerCreatePost() {
 	}
@@ -42,8 +32,7 @@ public class ControllerCreatePost {
 	/**********
 	 * <p> Method: performUpdate() </p>
 	 * 
-	 * <p> Description: This method directs the user to the User Update Page so the user can change
-	 * the user account attributes. </p>
+	 * <p> Redirects the user to the User Update page to modify their account details. </p>
 	 * 
 	 */
 	protected static void performUpdate () {
@@ -53,7 +42,7 @@ public class ControllerCreatePost {
 	/**********
 	 * <p> Method: performCreatePost() </p>
 	 * 
-	 * <p> Description: Validates and creates a new post. </p>
+	 * <p> Validates and creates a new post. </p>
 	 * 
 	 */
 	protected static void performCreatePost() {
@@ -108,7 +97,7 @@ public class ControllerCreatePost {
 	/**********
 	 * <p> Method: performCancel() </p>
 	 * 
-	 * <p> Description: Cancels post creation and returns to the correct home page. </p>
+	 * <p> Cancels post creation and returns to the correct home page. </p>
 	 * 
 	 */
 	protected static void performCancel() {
@@ -122,10 +111,8 @@ public class ControllerCreatePost {
 	/**********
 	 * <p> Method: performLogout() </p>
 	 * 
-	 * <p> Description: This method logs out the current user and proceeds to the normal login
-	 * page where existing users can log in or potential new users with a invitation code can
-	 * start the process of setting up an account. </p>
-	 * 
+	 * <p> Description: Logs out the current user and redirects to the login page, 
+	 * where existing users can sign in and new users can begin account setup using an invitation code. </p>
 	 */
 	protected static void performLogout() {
 		guiUserLogin.ViewUserLogin.displayUserLogin(ViewCreatePost.theStage);
@@ -134,9 +121,8 @@ public class ControllerCreatePost {
 	/**********
 	 * <p> Method: performQuit() </p>
 	 * 
-	 * <p> Description: This method terminates the execution of the program.  It leaves the
-	 * database in a state where the normal login page will be displayed when the application is
-	 * restarted.</p>
+	 * <p> Terminates the application and ensures the database remains in a state 
+	 * where the login page is shown on restart. </p>
 	 * 
 	 */	
 	protected static void performQuit() {
