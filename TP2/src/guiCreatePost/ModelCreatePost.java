@@ -1,46 +1,45 @@
 package guiCreatePost;
 
 /**
- * The Class ModelCreatePost.
+ * Model class for the create post page.
  */
 public class ModelCreatePost {
 
 /*******
  * <p> Title: ModelCreatePost Class. </p>
  * 
- * <p> Description: The Role1Home Page Model.  This class is a stub for future expansion.
- * 
- * This class is not used as there is no unique data manipulation for this GUI page.</p>
+ * <p> Description: Handles data-related operations for the Create Post page.
+ * Currently acts as a placeholder since all data interactions are managed
+ * directly through the database layer.</p>
  * 
  * <p> Copyright: Lynn Robert Carter © 2025 </p>
  * 
  * @author Lynn Robert Carter
  * 
- * @version 1.00		2025-08-15 Initial version
- * @version 1.01		2025-09-13 Updated JavaDoc description
+ * @version 1.00		2026-03-25 Updated description
  *  
  */
 	
 	/**
-	 * Default constructor. This Model class is a stub; no data is
-	 * directly managed by this MVC component beyond what the database handles.
+	 * Default constructor. This model currently does not manage its own data
+	 * and relies on the database for all operations.
 	 */
 	public ModelCreatePost() {
 	}
 
 	/**********
-	 * <p> Method: createPost(String username, String title, String body, String threadName) </p>
-	 * 
-	 * <p> Description: Creates a new post using the shared database object. </p>
-	 * 
-	 * @param username the logged-in user creating the post
-	 * @param title the title of the post
-	 * @param body the body of the post
-	 * @param threadName the selected thread name
-	 * 
-	 * @return true if successful, else false
-	 * 
-	 */
+ 	* <p> Method: createPost(String username, String title, String body, String threadName) </p>
+ 	* 
+ 	* <p> Description: Validates input and creates a new post using the database. </p>
+ 	* 
+ 	* @param username the user creating the post
+ 	* @param title the post title
+ 	* @param body the post content
+ 	* @param threadName the selected thread (defaults to "General" if empty)
+ 	* 
+ 	* @return true if the post is created successfully, otherwise false
+ 	* 
+ 	*/
 	protected static boolean createPost(String username, String title, String body, String threadName) {
 		try {
 			if (username == null || username.isBlank()) return false;
