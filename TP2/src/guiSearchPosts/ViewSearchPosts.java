@@ -22,12 +22,6 @@ import java.util.List;
  * by keyword and optionally by thread name. It serves as a central interface for discovering
  * and viewing posts relevant to their interests. </p>
  *
- * <p> Copyright: Lynn Robert Carter © 2025 </p>
- *
- * @author Lynn Robert Carter
- *
- * @version 1.00        2026-03-23 Initial implementation for Read & Search functionality
- *
  */
 public class ViewSearchPosts {
 
@@ -225,13 +219,13 @@ public class ViewSearchPosts {
     }
 
     /**********
-     * <p> Title: populateResultsTable(List<Post> posts) Method. </p>
+     * <p> Title: populateResultsTable Method. </p>
      * 
      * <p> Description: Protected method that populates the results table with the provided list
      * of posts, displaying only non-deleted posts with their metadata including title, author,
      * thread, reply count, and read status. </p>
      *
-     * @param posts           The list of posts to display in the table
+     * @param posts: The list of posts to display in the table
      *
      */
     public static void populateResultsTable(List<Post> posts) {
@@ -336,12 +330,19 @@ public class ViewSearchPosts {
      *
      */
     public static class PostDisplay {
+    	/** Unique ID of the post */
         private final javafx.beans.property.SimpleIntegerProperty postId;
+        /** Title of the post */
         private final javafx.beans.property.SimpleStringProperty title;
+        /** Username of the author */
         private final javafx.beans.property.SimpleStringProperty author;
+        /** Thread that the post is a part of */
         private final javafx.beans.property.SimpleStringProperty thread;
+        /** Number of replies on the post */
         private final javafx.beans.property.SimpleIntegerProperty replyCount;
+        /** Status of the post */
         private final javafx.beans.property.SimpleStringProperty status;
+        /** Date and time the post was posted */
         private final javafx.beans.property.SimpleStringProperty timestamp;
 
         /**
@@ -366,12 +367,40 @@ public class ViewSearchPosts {
             );
         }
 
+        /** 
+         * <p> Gets the unique id of the post </p>
+         * @return postId
+         */
         public int getPostId() { return postId.get(); }
+        /**
+         * <p> Gets the title of the post </p>
+         * @return title of the post
+         */
         public String getTitle() { return title.get(); }
+        /**
+         * <p> Gets the username of the author </p>
+         * @return username of the author
+         */
         public String getAuthor() { return author.get(); }
+        /**
+         * <p> Gets the thread </p>
+         * @return thread name
+         */
         public String getThread() { return thread.get(); }
+        /**
+         * <p> Gets the number of replies on the post </p>
+         * @return number of replies
+         */
         public int getReplyCount() { return replyCount.get(); }
+        /**
+         * <p> Gets the status of the post relative to the user </p>
+         * @return status: read or unread
+         */
         public String getStatus() { return status.get(); }
+        /**
+         * <p> Gets the date and time of posting </p>
+         * @return date and time when the post was posted
+         */
         public String getTimestamp() { return timestamp.get(); }
     }
 }

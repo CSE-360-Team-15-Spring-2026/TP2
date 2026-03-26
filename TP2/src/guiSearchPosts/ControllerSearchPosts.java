@@ -13,11 +13,6 @@ import java.util.List;
  *
  * <p> Note: Methods are declared as protected since they are intended to be accessed only by
  * the View and Model classes within this MVC structure.</p>
- *
- * <p> Copyright: Lynn Robert Carter © 2025 </p>
- *
- * @author Lynn Robert Carter
- *
  */
 public class ControllerSearchPosts {
 

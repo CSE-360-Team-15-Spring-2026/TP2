@@ -10,12 +10,9 @@ import java.util.List;
  * <p> Description: Handles data-related operations for the Search Posts page.
  * Manages search functionality and stores search results for back navigation. </p>
  *
- * <p> Copyright: Lynn Robert Carter © 2025 </p>
- *
- * @author Lynn Robert Carter
- *
  */
 public class ModelSearchPosts {
+	/** List of the last search results */
 	private static List<Post> lastSearchResults = new ArrayList<>();
 
 	/**
@@ -57,7 +54,7 @@ public class ModelSearchPosts {
     }
 
     /**********
-     * <p> Title: setLastSearchResults(List<Post> results) Method. </p>
+     * <p> Title: setLastSearchResults Method. </p>
 	 *
      * <p> Description: Protected method that caches the most recent search results to enable
      * proper navigation when the user returns from viewing a post detail page. This allows the
